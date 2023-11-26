@@ -1,5 +1,8 @@
 package com.icr7.springBootBasics;
 
+import org.apache.logging.log4j.spi.LoggerContextFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,11 +27,18 @@ public class SpringBootBasicsApplication {
 @RequestMapping("/test")
 class Controller{
 
+	Logger logger = LoggerFactory.getLogger(Controller.class);
+
 	@Value("${my.name}")
 	String name;
 
 	@GetMapping("/v1")
 	public String get(){
+		logger.trace("Controller hit");
+		logger.debug("Controller hit");
+		logger.info("Controller hit");
+		logger.warn("Controller hit");
+		logger.error("Controller hit");
 		return "hi there "+name;
 	}
 }
